@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="theme-color" content="#08783f">
-  <title>図でわかる モータの公差</title>
+  <title>図でわかる モータの組立精度</title>
   <style>
     :root {
       --green:#08783f;
@@ -159,8 +159,8 @@
     <div class="hero-inner">
       <div>
         <span class="eyebrow">🔧 初心者向け・図解資料</span>
-        <h1>図でわかる<br>モータの公差</h1>
-        <p>部品ごとの小さな寸法差が、組立後の「同心度」と「直角度」にどう影響するのかを、絵と計算で順番に理解します。</p>
+        <h1>図でわかる<br>モータの組立精度</h1>
+        <p>Lブラケットの客先取付インロー中心軸を基準Aとして、NL側にあるエンコーダ取付部の同軸度と直角度を、絵と計算で順番に確認します。</p>
         <p class="hero-note">※掲載数値は計算方法を説明するための仮定例です。</p>
       </div>
       <div class="hero-art" aria-label="モータ公差の概要図">
@@ -178,20 +178,25 @@
             <text x="489" y="119" text-anchor="middle" fill="#08783f" font-size="18" font-weight="900">L</text>
             <circle cx="199" cy="196" r="32" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/>
             <circle cx="470" cy="196" r="32" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/>
-            <rect x="90" y="184" width="455" height="24" rx="12" fill="#ed4050" stroke="#ad1321" stroke-width="5"/>
+            <rect x="170" y="184" width="420" height="24" rx="12" fill="#ed4050" stroke="#ad1321" stroke-width="5"/>
+            <rect x="115" y="120" width="20" height="152" rx="5" fill="#9b65d4" stroke="#65349c" stroke-width="5"/>
             <rect x="515" y="112" width="38" height="168" rx="8" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
             <path d="M225 278h55v34h-75zM390 278h55l18 34h-73z" fill="#1479d1" stroke="#075b9e" stroke-width="5"/>
           </g>
-          <line x1="64" y1="196" x2="574" y2="196" stroke="#66747d" stroke-width="3" stroke-dasharray="10 8"/>
+          <line x1="90" y1="196" x2="594" y2="196" stroke="#66747d" stroke-width="3" stroke-dasharray="10 8"/>
+          <text x="125" y="96" text-anchor="middle" fill="#65349c" font-size="15" font-weight="900">エンコーダ取付面</text>
+          <text x="522" y="93" text-anchor="middle" fill="#65349c" font-size="15" font-weight="900">客先取付インロー</text>
+          <text x="566" y="178" text-anchor="middle" fill="#ad1321" font-size="15" font-weight="900">L側軸出力</text>
+          <text x="564" y="214" fill="#66747d" font-size="15" font-weight="900">基準軸A</text>
           <line x1="523" y1="212" x2="584" y2="224" stroke="#e92e3d" stroke-width="5"/>
           <path d="M555 196v28" stroke="#f5c437" stroke-width="4"/>
           <path d="M549 202l6-7 6 7M549 218l6 7 6-7" fill="none" stroke="#f5c437" stroke-width="4"/>
           <g font-family="sans-serif" font-weight="800">
-            <rect x="30" y="310" width="145" height="46" rx="23" fill="#e7f3ff"/><text x="102" y="340" text-anchor="middle" fill="#1479d1" font-size="22">部品の公差</text>
+            <rect x="30" y="310" width="145" height="46" rx="23" fill="#e7f3ff"/><text x="102" y="340" text-anchor="middle" fill="#1479d1" font-size="20">Lインロー基準</text>
             <path d="M183 333h72" stroke="#08783f" stroke-width="7"/><path d="M243 321l14 12-14 12" fill="none" stroke="#08783f" stroke-width="7"/>
-            <rect x="268" y="310" width="145" height="46" rx="23" fill="#e7f8ee"/><text x="340" y="340" text-anchor="middle" fill="#08783f" font-size="22">組み合わせ</text>
+            <rect x="268" y="310" width="145" height="46" rx="23" fill="#e7f8ee"/><text x="340" y="340" text-anchor="middle" fill="#08783f" font-size="20">公差の伝達</text>
             <path d="M421 333h58" stroke="#08783f" stroke-width="7"/><path d="M467 321l14 12-14 12" fill="none" stroke="#08783f" stroke-width="7"/>
-            <rect x="487" y="310" width="104" height="46" rx="23" fill="#ffe8eb"/><text x="539" y="340" text-anchor="middle" fill="#e92e3d" font-size="22">ずれ</text>
+            <rect x="487" y="310" width="104" height="46" rx="23" fill="#ffe8eb"/><text x="539" y="340" text-anchor="middle" fill="#e92e3d" font-size="18">E取付精度</text>
           </g>
         </svg>
       </div>
@@ -200,98 +205,107 @@
 
   <div class="wrap">
     <nav class="toc" aria-label="目次">
-      <a href="#basic">1 公差とは</a><a href="#parts">2 部品</a><a href="#assembly">3 組立</a><a href="#concentricity">4 同心度</a><a href="#perpendicularity">5 直角度</a><a href="#calculator">6 計算機</a><a href="#summary">7 まとめ</a>
+      <a href="#parts">1 モータ構成</a><a href="#datum">2 基準と評価対象</a><a href="#assembly">3 公差経路</a><a href="#concentricity">4 同軸度</a><a href="#perpendicularity">5 直角度</a><a href="#calculator">6 計算機</a><a href="#summary">7 まとめ</a>
     </nav>
 
     <main>
-      <section class="chapter" id="basic">
-        <h2 class="chapter-title"><span class="num">1</span>そもそも「公差」ってなに？</h2>
-        <p class="lead">図面が同じでも、加工した部品をまったく同じ寸法にすることはできません。使用してよい寸法の幅が「寸法公差」です。</p>
-        <div class="two-col">
-          <div class="picture-board">
-            <svg viewBox="0 0 560 360" role="img" aria-labelledby="basicTitle basicDesc">
-              <title id="basicTitle">軸径をノギスで測定する図</title><desc id="basicDesc">基準寸法100ミリの軸に上限と下限があることを示す。</desc>
-              <rect x="18" y="18" width="524" height="324" rx="20" fill="#eaf7ff"/>
-              <rect x="112" y="151" width="336" height="78" rx="39" fill="#ed4050" stroke="#ad1321" stroke-width="6"/>
-              <rect x="78" y="102" width="28" height="180" rx="8" fill="#f5c437" stroke="#a67b00" stroke-width="5"/>
-              <rect x="454" y="102" width="28" height="180" rx="8" fill="#f5c437" stroke="#a67b00" stroke-width="5"/>
-              <path d="M106 116h348M106 267h348" stroke="#a67b00" stroke-width="6"/>
-              <line x1="112" y1="78" x2="448" y2="78" stroke="#1479d1" stroke-width="4"/>
-              <path d="M126 68l-14 10 14 10M434 68l14 10-14 10" fill="none" stroke="#1479d1" stroke-width="4"/>
-              <text x="280" y="61" text-anchor="middle" fill="#075b9e" font-size="24" font-weight="900">基準寸法 φ100</text>
-              <text x="280" y="195" text-anchor="middle" fill="#fff" font-size="27" font-weight="900">加工された軸</text>
-              <text x="280" y="316" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">測って「使える範囲内か」を確認</text>
-            </svg>
-          </div>
-          <div>
-            <div class="mini-card blue-card"><h3>基準寸法</h3><p>図面の基準となる寸法。例：φ100 mm</p></div>
-            <div class="mini-card orange-card" style="margin-top:12px"><h3>許容される範囲</h3><p>99.98～100.04 mmなら、その間に入った部品を使用できます。</p></div>
-            <div class="formula">寸法公差 ＝ 上限寸法 − 下限寸法<br><strong>100.04 − 99.98</strong> ＝ <span class="answer">0.06 mm</span></div>
-          </div>
-        </div>
-        <div class="note"><strong>ポイント：</strong>寸法公差は「部品の大きさのばらつき」です。組み合わせると、すきまや中心ずれに変わります。</div>
-      </section>
-
       <section class="chapter" id="parts">
-        <h2 class="chapter-title"><span class="num">2</span>モータを構成する部品</h2>
+        <h2 class="chapter-title"><span class="num">1</span>モータを構成する部品</h2>
         <p class="lead">どこから誤差が伝わるか分かるように、部品ごとに色を固定して見ていきます。この資料では<strong>左側をNL（反負荷側）</strong>、<strong>右側をL（負荷側）</strong>として統一します。</p>
         <div class="chips">
           <span class="chip"><i class="dot" style="background:var(--blue)"></i>フレーム</span>
           <span class="chip"><i class="dot" style="background:var(--green-2)"></i>ブラケット</span>
           <span class="chip"><i class="dot" style="background:var(--orange)"></i>軸受</span>
           <span class="chip"><i class="dot" style="background:var(--red)"></i>軸</span>
-          <span class="chip"><i class="dot" style="background:var(--purple)"></i>取付面</span>
+          <span class="chip"><i class="dot" style="background:var(--purple)"></i>基準・取付部</span>
         </div>
         <div class="picture-board">
-          <svg viewBox="0 0 980 460" role="img" aria-labelledby="partsTitle partsDesc">
-            <title id="partsTitle">モータの分解図</title><desc id="partsDesc">左側にNLブラケット、右側にLブラケットを配置し、軸受、軸、フレームと並べた図。</desc>
-            <rect x="16" y="16" width="948" height="428" rx="24" fill="#f4fbf6"/>
+          <svg viewBox="0 0 980 470" role="img" aria-labelledby="partsTitle partsDesc">
+            <title id="partsTitle">モータ組立断面の模式図</title><desc id="partsDesc">左にNLブラケットとエンコーダ取付面、中央にフレーム、右にLブラケットと客先取付インローを配置し、シャフトがL側へ突出する。</desc>
+            <rect x="16" y="16" width="948" height="438" rx="24" fill="#f4fbf6"/>
+            <rect x="332" y="100" width="330" height="245" rx="28" fill="#2386d9" stroke="#075b9e" stroke-width="7"/>
+            <path d="M372 112v220M418 106v232M464 106v232M510 106v232M556 106v232M602 112v220" stroke="#70baf3" stroke-width="10"/>
+            <rect x="210" y="80" width="145" height="285" rx="28" fill="#19a95d" stroke="#08783f" stroke-width="7"/>
+            <rect x="640" y="80" width="145" height="285" rx="28" fill="#19a95d" stroke="#08783f" stroke-width="7"/>
+            <rect x="181" y="105" width="30" height="235" rx="6" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
+            <rect x="770" y="112" width="42" height="220" rx="7" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
+            <rect x="259" y="155" width="48" height="135" rx="8" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/>
+            <rect x="688" y="155" width="48" height="135" rx="8" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/>
+            <rect x="263" y="209" width="645" height="28" rx="14" fill="#ed4050" stroke="#ad1321" stroke-width="6"/>
+            <rect x="808" y="214" width="124" height="18" rx="9" fill="#ed4050" stroke="#ad1321" stroke-width="5"/>
+            <line x1="150" y1="223" x2="935" y2="223" stroke="#66747d" stroke-width="3" stroke-dasharray="11 8"/>
+            <path d="M332 345h75v34h-92zM587 345h75l20 34h-95z" fill="#1479d1" stroke="#075b9e" stroke-width="5"/>
             <g font-family="sans-serif" font-weight="900" text-anchor="middle">
-              <rect x="46" y="120" width="54" height="205" rx="10" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
-              <text x="73" y="356" fill="#65349c" font-size="22">取付面</text>
-              <path d="M113 220h42" stroke="#08783f" stroke-width="7"/><path d="M145 209l13 11-13 11" fill="none" stroke="#08783f" stroke-width="7"/>
-              <rect x="166" y="135" width="98" height="175" rx="25" fill="#19a95d" stroke="#08783f" stroke-width="6"/>
-              <circle cx="215" cy="222" r="43" fill="#f4fbf6" stroke="#08783f" stroke-width="6"/>
-              <text x="215" y="356" fill="#08783f" font-size="22">NLブラケット</text>
-              <path d="M277 220h37" stroke="#08783f" stroke-width="7"/><path d="M304 209l13 11-13 11" fill="none" stroke="#08783f" stroke-width="7"/>
-              <circle cx="350" cy="222" r="48" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/><circle cx="350" cy="222" r="22" fill="#fff" stroke="#ae5e00" stroke-width="6"/>
-              <text x="350" y="356" fill="#ae5e00" font-size="22">軸受①</text>
-              <path d="M406 220h40" stroke="#08783f" stroke-width="7"/><path d="M436 209l13 11-13 11" fill="none" stroke="#08783f" stroke-width="7"/>
-              <rect x="423" y="205" width="160" height="34" rx="17" fill="#ed4050" stroke="#ad1321" stroke-width="6"/>
-              <text x="503" y="289" fill="#ad1321" font-size="22">軸</text>
-              <rect x="455" y="105" width="220" height="88" rx="22" fill="#2386d9" stroke="#075b9e" stroke-width="6"/>
-              <path d="M485 116v66M520 111v76M555 111v76M590 111v76M625 116v66" stroke="#70baf3" stroke-width="8"/>
-              <text x="565" y="76" fill="#075b9e" font-size="22">フレーム</text>
-              <path d="M684 220h38" stroke="#08783f" stroke-width="7"/><path d="M712 209l13 11-13 11" fill="none" stroke="#08783f" stroke-width="7"/>
-              <circle cx="758" cy="222" r="48" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/><circle cx="758" cy="222" r="22" fill="#fff" stroke="#ae5e00" stroke-width="6"/>
-              <text x="758" y="356" fill="#ae5e00" font-size="22">軸受②</text>
-              <path d="M814 220h36" stroke="#08783f" stroke-width="7"/><path d="M840 209l13 11-13 11" fill="none" stroke="#08783f" stroke-width="7"/>
-              <rect x="862" y="135" width="82" height="175" rx="25" fill="#19a95d" stroke="#08783f" stroke-width="6"/>
-              <circle cx="903" cy="222" r="35" fill="#f4fbf6" stroke="#08783f" stroke-width="6"/>
-              <text x="900" y="356" fill="#08783f" font-size="22">Lブラケット</text>
-              <text x="490" y="414" fill="#17242d" font-size="23">それぞれの寸法公差・幾何公差が、組立後の軸精度へ伝わる</text>
+              <text x="497" y="69" fill="#075b9e" font-size="23">フレーム</text>
+              <text x="282" y="49" fill="#08783f" font-size="22">NLブラケット</text>
+              <text x="712" y="49" fill="#08783f" font-size="22">Lブラケット</text>
+              <text x="196" y="397" fill="#65349c" font-size="20">エンコーダ取付面</text>
+              <text x="791" y="397" fill="#65349c" font-size="20">客先取付インロー</text>
+              <text x="283" y="317" fill="#ae5e00" font-size="19">NL側軸受</text>
+              <text x="712" y="317" fill="#ae5e00" font-size="19">L側軸受</text>
+              <text x="877" y="199" fill="#ad1321" font-size="20">L側へ突出</text>
+              <text x="885" y="255" fill="#66747d" font-size="19">基準軸A</text>
             </g>
           </svg>
         </div>
       </section>
 
+      <section class="chapter" id="datum">
+        <h2 class="chapter-title"><span class="num">2</span>基準Aとエンコーダ取付部の関係</h2>
+        <p class="lead">基準は<strong>Lブラケットの客先取付インロー円筒面から得られる中心軸A</strong>です。この軸をNL側まで延長し、エンコーダ取付部がどれだけずれるかを評価します。</p>
+        <div class="picture-board">
+          <svg viewBox="0 0 980 430" role="img" aria-labelledby="datumTitle datumDesc">
+            <title id="datumTitle">Lブラケット基準とエンコーダ取付部</title><desc id="datumDesc">右のLブラケット客先取付インローから基準軸Aを設定し、左のエンコーダ取付インロー中心軸と取付面を評価する。</desc>
+            <rect x="18" y="18" width="944" height="394" rx="24" fill="#f7fbf8"/>
+            <rect x="255" y="112" width="460" height="205" rx="32" fill="#2386d9" stroke="#075b9e" stroke-width="7"/>
+            <rect x="175" y="95" width="110" height="238" rx="26" fill="#19a95d" stroke="#08783f" stroke-width="7"/>
+            <rect x="690" y="95" width="110" height="238" rx="26" fill="#19a95d" stroke="#08783f" stroke-width="7"/>
+            <rect x="147" y="119" width="28" height="190" rx="6" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
+            <rect x="786" y="125" width="46" height="178" rx="7" fill="#9b65d4" stroke="#65349c" stroke-width="7"/>
+            <rect x="213" y="200" width="670" height="28" rx="14" fill="#ed4050" stroke="#ad1321" stroke-width="6"/>
+            <line x1="90" y1="214" x2="914" y2="214" stroke="#08783f" stroke-width="4" stroke-dasharray="13 9"/>
+            <line x1="92" y1="188" x2="175" y2="202" stroke="#e92e3d" stroke-width="4" stroke-dasharray="8 6"/>
+            <line x1="92" y1="238" x2="175" y2="226" stroke="#e92e3d" stroke-width="4" stroke-dasharray="8 6"/>
+            <path d="M105 188v50" stroke="#f5c437" stroke-width="5"/><path d="M98 197l7-9 7 9M98 229l7 9 7-9" fill="none" stroke="#f5c437" stroke-width="5"/>
+            <path d="M147 119h-36v36" fill="none" stroke="#f5c437" stroke-width="6"/>
+            <g font-family="sans-serif" font-weight="900">
+              <text x="834" y="83" text-anchor="middle" fill="#65349c" font-size="21">Lブラケット</text>
+              <text x="834" y="108" text-anchor="middle" fill="#65349c" font-size="21">客先取付インロー</text>
+              <text x="688" y="195" text-anchor="end" fill="#08783f" font-size="22">基準軸A</text>
+              <text x="73" y="274" fill="#e92e3d" font-size="20">中心ずれ e</text>
+              <text x="75" y="330" fill="#65349c" font-size="20">エンコーダ取付インロー／穴</text>
+              <text x="75" y="365" fill="#a67b00" font-size="20">エンコーダ取付面</text>
+              <text x="845" y="245" fill="#ad1321" font-size="19">L側出力軸</text>
+            </g>
+          </svg>
+        </div>
+        <div class="two-col" style="margin-top:18px">
+          <div class="mini-card blue-card"><h3>同軸度として評価するもの</h3><p>エンコーダを中心決めする<strong>取付インローまたは取付穴の中心軸</strong>が、基準軸Aからどれだけずれているかを評価します。</p></div>
+          <div class="mini-card orange-card"><h3>直角度として評価するもの</h3><p><strong>エンコーダ取付面</strong>には中心がないため、同心度ではなく、基準軸Aに対する直角度または面振れで評価します。</p></div>
+        </div>
+        <div class="note"><strong>この資料で「エンコーダ取付部の同心」と表す場合、</strong>取付面そのものではなく、エンコーダを中心決めするインロー・穴の中心軸を指します。</div>
+      </section>
+
       <section class="chapter" id="assembly">
-        <h2 class="chapter-title"><span class="num">3</span>部品を組み合わせるとどうなる？</h2>
-        <p class="lead">ボタンを押して、誤差が増えていく順番を確認できます。</p>
+        <h2 class="chapter-title"><span class="num">3</span>Lブラケットからの公差経路</h2>
+        <p class="lead">Lブラケットの客先取付インローから、エンコーダ取付部まで、中心基準がどの部品を通って伝わるかを確認します。</p>
         <div class="assembly-controls" role="group" aria-label="組立手順">
-          <button class="btn btn-secondary asm-btn" data-stage="0" aria-pressed="true">① フレーム</button>
-          <button class="btn btn-secondary asm-btn" data-stage="1" aria-pressed="false">② ブラケット</button>
-          <button class="btn btn-secondary asm-btn" data-stage="2" aria-pressed="false">③ 軸受</button>
-          <button class="btn btn-secondary asm-btn" data-stage="3" aria-pressed="false">④ 軸</button>
+          <button class="btn btn-secondary asm-btn" data-stage="0" aria-pressed="true">① 基準A</button>
+          <button class="btn btn-secondary asm-btn" data-stage="1" aria-pressed="false">② L側</button>
+          <button class="btn btn-secondary asm-btn" data-stage="2" aria-pressed="false">③ NL側</button>
+          <button class="btn btn-secondary asm-btn" data-stage="3" aria-pressed="false">④ エンコーダ部</button>
         </div>
         <div class="picture-board" aria-live="polite">
           <div class="assembly-stage active" data-stage-view="0">
-            <svg viewBox="0 0 860 360" role="img" aria-label="手順1 フレーム">
-              <rect x="18" y="18" width="824" height="324" rx="22" fill="#eaf7ff"/>
-              <rect x="270" y="92" width="320" height="174" rx="34" fill="#2386d9" stroke="#075b9e" stroke-width="7"/>
-              <path d="M310 104v150M355 98v162M400 98v162M445 98v162M490 98v162M535 104v150" stroke="#70baf3" stroke-width="10"/>
-              <text x="430" y="60" text-anchor="middle" fill="#075b9e" font-size="27" font-weight="900">① 基準になるフレーム</text>
-              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">嵌合径の寸法が、ブラケットの位置を決める</text>
+            <svg viewBox="0 0 860 360" role="img" aria-label="手順1 Lブラケットの客先取付インローを基準にする">
+              <rect x="18" y="18" width="824" height="324" rx="22" fill="#f2eafe"/>
+              <rect x="520" y="88" width="145" height="185" rx="28" fill="#19a95d" stroke="#08783f" stroke-width="7"/>
+              <rect x="646" y="108" width="48" height="145" rx="8" fill="#9b65d4" stroke="#65349c" stroke-width="7"/>
+              <rect x="590" y="169" width="180" height="24" rx="12" fill="#ed4050" stroke="#ad1321" stroke-width="5"/>
+              <line x1="110" y1="181" x2="790" y2="181" stroke="#08783f" stroke-width="4" stroke-dasharray="12 8"/>
+              <text x="430" y="58" text-anchor="middle" fill="#65349c" font-size="27" font-weight="900">① 客先取付インローから基準軸Aを決める</text>
+              <text x="592" y="303" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">Lブラケットのインロー円筒面が基準</text>
+              <text x="265" y="166" text-anchor="middle" fill="#08783f" font-size="22" font-weight="900">基準軸AをNL側へ延長</text>
             </svg>
           </div>
           <div class="assembly-stage" data-stage-view="1">
@@ -304,8 +318,8 @@
               <text x="610" y="94" text-anchor="middle" fill="#08783f" font-size="20" font-weight="900">L</text>
               <path d="M192 179h-75M668 179h75" stroke="#08783f" stroke-width="8"/>
               <path d="M128 166l-14 13 14 13M732 166l14 13-14 13" fill="none" stroke="#08783f" stroke-width="8"/>
-              <text x="430" y="58" text-anchor="middle" fill="#08783f" font-size="27" font-weight="900">② ブラケットを嵌める</text>
-              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">嵌合すきまの半分だけ、中心が動ける</text>
+              <text x="430" y="58" text-anchor="middle" fill="#08783f" font-size="27" font-weight="900">② L側の軸受・シャフトへ中心を伝える</text>
+              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">L側軸受穴、嵌合すきま、軸受偏心が加わる</text>
             </svg>
           </div>
           <div class="assembly-stage" data-stage-view="2">
@@ -318,8 +332,8 @@
               <text x="610" y="94" text-anchor="middle" fill="#08783f" font-size="20" font-weight="900">L</text>
               <circle cx="275" cy="179" r="42" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/><circle cx="275" cy="179" r="20" fill="#fff" stroke="#ae5e00" stroke-width="5"/>
               <circle cx="585" cy="179" r="42" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/><circle cx="585" cy="179" r="20" fill="#fff" stroke="#ae5e00" stroke-width="5"/>
-              <text x="430" y="58" text-anchor="middle" fill="#ae5e00" font-size="27" font-weight="900">③ 軸受を組み込む</text>
-              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">軸受穴の位置度・外輪嵌合・内部偏心が加わる</text>
+              <text x="430" y="58" text-anchor="middle" fill="#ae5e00" font-size="27" font-weight="900">③ NL側軸受・NLブラケットまで伝える</text>
+              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">軸の傾きとNL側部品の同心誤差が加わる</text>
             </svg>
           </div>
           <div class="assembly-stage" data-stage-view="3">
@@ -331,19 +345,20 @@
               <text x="250" y="94" text-anchor="middle" fill="#08783f" font-size="20" font-weight="900">NL</text>
               <text x="610" y="94" text-anchor="middle" fill="#08783f" font-size="20" font-weight="900">L</text>
               <circle cx="275" cy="179" r="42" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/><circle cx="585" cy="179" r="42" fill="#f4a020" stroke="#ae5e00" stroke-width="7"/>
-              <rect x="115" y="166" width="630" height="26" rx="13" fill="#ed4050" stroke="#ad1321" stroke-width="6"/>
+              <rect x="245" y="166" width="540" height="26" rx="13" fill="#ed4050" stroke="#ad1321" stroke-width="6"/>
+              <rect x="176" y="105" width="26" height="148" rx="6" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
               <line x1="92" y1="158" x2="770" y2="158" stroke="#66747d" stroke-width="3" stroke-dasharray="10 8"/>
               <line x1="690" y1="158" x2="690" y2="179" stroke="#f5c437" stroke-width="5"/>
-              <text x="430" y="58" text-anchor="middle" fill="#ad1321" font-size="27" font-weight="900">④ 軸を通すと、組立精度が現れる</text>
-              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">中心ずれと傾きが、軸端の位置に現れる</text>
+              <text x="430" y="58" text-anchor="middle" fill="#ad1321" font-size="27" font-weight="900">④ エンコーダ取付部の精度として現れる</text>
+              <text x="430" y="310" text-anchor="middle" fill="#17242d" font-size="22" font-weight="800">E取付インローは同軸度、E取付面は直角度で評価</text>
             </svg>
           </div>
         </div>
       </section>
 
       <section class="chapter" id="concentricity">
-        <h2 class="chapter-title"><span class="num">4</span>同心度：中心がどれだけずれるか</h2>
-        <p class="lead">軸端の同心度に効く要因を、①部品単体の同心、②寸法公差による中心移動、③直角度による軸端のずれ、の3系統に分けます。すべて半径方向の中心ずれ（mm）へ換算してから合成します。</p>
+        <h2 class="chapter-title"><span class="num">4</span>エンコーダ取付部の同軸度</h2>
+        <p class="lead">Lブラケットの客先取付インロー中心軸Aに対する、エンコーダ取付インロー中心軸のずれを、①部品単体の同心、②寸法公差による中心移動、③直角度による取付位置でのずれ、の3系統に分けます。</p>
 
         <div class="group-grid">
           <article class="group-card group-a">
@@ -355,7 +370,7 @@
               <line x1="155" y1="61" x2="273" y2="61" stroke="#66747d" stroke-width="3" stroke-dasharray="8 6"/>
               <text x="150" y="139" text-anchor="middle" fill="#17242d" font-size="17" font-weight="900">穴位置・偏心・振れ</text>
             </svg>
-            <div class="group-value">RSS 0.016 mm</div><small>NL/Lブラケット穴、軸受偏心、軸振れ</small>
+            <div class="group-value">RSS 0.019 mm</div><small>NL/Lブラケット穴、エンコーダ取付インロー、偏心・振れ</small>
           </article>
           <article class="group-card group-b">
             <h3>② 寸法公差によるずれ</h3>
@@ -367,16 +382,16 @@
             <div class="group-value">RSS 0.036 mm</div><small>Lブラケット嵌合、L側軸受外輪嵌合</small>
           </article>
           <article class="group-card group-c">
-            <h3>③ 直角度による同心</h3>
-            <svg viewBox="0 0 300 165" role="img" aria-label="軸の傾きによる軸端ずれ">
+            <h3>③ 直角度による同軸ずれ</h3>
+            <svg viewBox="0 0 300 165" role="img" aria-label="軸線の傾きによるエンコーダ取付位置のずれ">
               <rect x="36" y="18" width="24" height="120" rx="6" fill="#9b65d4"/>
               <line x1="60" y1="77" x2="275" y2="77" stroke="#66747d" stroke-width="3" stroke-dasharray="8 6"/>
               <line x1="60" y1="80" x2="275" y2="109" stroke="#ed4050" stroke-width="18" stroke-linecap="round"/>
               <line x1="250" y1="77" x2="250" y2="106" stroke="#f5c437" stroke-width="5"/>
               <text x="266" y="96" fill="#17242d" font-size="18" font-weight="900">δ</text>
-              <text x="150" y="153" text-anchor="middle" fill="#17242d" font-size="17" font-weight="900">δ ＝ 距離 L × 角度 θ</text>
+              <text x="150" y="153" text-anchor="middle" fill="#17242d" font-size="17" font-weight="900">δ ＝ 距離 SE × 角度 θ</text>
             </svg>
-            <div class="group-value">RSS 0.029 mm</div><small>取付面、軸受中心差、軸受内部傾き</small>
+            <div class="group-value">RSS 0.029 mm</div><small>エンコーダ取付面、軸受中心差、軸受内部傾き</small>
           </article>
         </div>
 
@@ -387,12 +402,13 @@
             <tbody>
               <tr><td>NLブラケット軸受穴の同心度 ⌀0.020</td><td>直径公差域 ÷ 2</td><td>0.010 mm</td></tr>
               <tr><td>Lブラケット軸受穴の同心度 ⌀0.020</td><td>直径公差域 ÷ 2</td><td>0.010 mm</td></tr>
+              <tr><td>エンコーダ取付インローの同心度 ⌀0.020</td><td>直径公差域 ÷ 2</td><td>0.010 mm</td></tr>
               <tr><td>軸受内部偏心</td><td>半径方向のカタログ値</td><td>0.005 mm</td></tr>
               <tr><td>軸ジャーナル振れ TIR 0.010</td><td>TIR ÷ 2</td><td>0.005 mm</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="formula">部品同心 RSS ＝ √(0.010²＋0.010²＋0.005²＋0.005²)<br>＝ <span class="answer">0.016 mm</span></div>
+        <div class="formula">部品同心 RSS ＝ √(0.010²＋0.010²＋0.010²＋0.005²＋0.005²)<br>＝ <span class="answer">0.019 mm</span></div>
 
         <h3>② 寸法公差によるずれの同心</h3>
         <div class="two-col">
@@ -415,35 +431,35 @@
           </div>
         </div>
         <div class="formula">寸法公差 RSS ＝ √(0.030²＋0.020²)<br>＝ <span class="answer">0.036 mm</span></div>
-        <div class="note"><strong>この簡易モデルでは、</strong>L側軸端の中心位置を評価するため、L側の嵌合すきまを②へ入れています。NL側とL側の相対的な位置差は、③の「NL－L軸受中心差」で傾きとして評価し、同じ誤差を二重に足さないようにします。</div>
+        <div class="note"><strong>この簡易モデルでは、</strong>Lブラケットからエンコーダ取付部までの経路を評価するため、L側の嵌合すきまを②へ入れています。NL側とL側の相対的な位置差は、③の「NL－L軸受中心差」で傾きとして評価し、同じ誤差を二重に足さないようにします。</div>
 
-        <h3>③ 直角度による同心</h3>
-        <p>直角度は角度のまま足さず、評価したいL側軸端までの距離を掛けて、中心ずれδへ変換します。</p>
+        <h3>③ 直角度による同軸ずれ</h3>
+        <p>直角度は角度のまま足さず、基準となるLブラケットからエンコーダ取付位置までの距離SEを掛け、取付位置での中心ずれδへ変換します。</p>
         <div class="formula">面の直角度：60 × (0.030/100) ＝ 0.018 mm<br>軸受中心差：60 × (0.040/120) ＝ 0.020 mm<br>軸受内部傾き：60 × 0.000200 ＝ 0.012 mm<br><br>直角度起因 RSS ＝ √(0.018²＋0.020²＋0.012²)<br>＝ <span class="answer">0.029 mm</span></div>
 
         <h3>3系統を合成</h3>
-        <div class="formula">最悪値 ＝ 0.030＋0.050＋0.050 ＝ <span class="answer">0.130 mm</span><br><br>全体RSS ＝ √(0.016²＋0.036²＋0.029²)<br>＝ <span class="answer">0.049 mm</span></div>
+        <div class="formula">最悪値 ＝ 0.040＋0.050＋0.050 ＝ <span class="answer">0.140 mm</span><br><br>全体RSS ＝ √(0.019²＋0.036²＋0.029²)<br>＝ <span class="answer">0.050 mm</span></div>
         <div class="note"><strong>寄与率：</strong>RSSでは各要因の二乗を全二乗和で割ります。例：寄与率 ＝ 要因² ÷ 全要因の二乗和 × 100。数値変更と改善効果は「6 計算機」で確認できます。</div>
       </section>
 
       <section class="chapter" id="perpendicularity">
-        <h2 class="chapter-title"><span class="num">5</span>直角度：軸がどれだけ傾くか</h2>
-        <p class="lead">取付面に対する軸の傾きを角度へ換算し、軸端までの距離を掛けて先端変位を求めます。</p>
+        <h2 class="chapter-title"><span class="num">5</span>エンコーダ取付面の直角度</h2>
+        <p class="lead">エンコーダ取付面は、Lブラケットから得た基準軸Aに対して直角であることを評価します。面の傾きや組立軸線の傾きを角度へ換算します。</p>
         <div class="compare">
           <article>
             <h3 style="color:var(--green)">理想の状態</h3>
-            <svg viewBox="0 0 420 280" role="img" aria-label="取付面に直角な理想軸">
+            <svg viewBox="0 0 420 280" role="img" aria-label="エンコーダ取付面に直角な基準軸A">
               <rect x="45" y="35" width="40" height="210" rx="8" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
               <line x1="85" y1="140" x2="380" y2="140" stroke="#66747d" stroke-width="3" stroke-dasharray="9 7"/>
               <rect x="80" y="127" width="300" height="26" rx="13" fill="#ed4050" stroke="#ad1321" stroke-width="5"/>
               <path d="M86 140h30v-30" fill="none" stroke="#f5c437" stroke-width="6"/>
-              <text x="222" y="90" text-anchor="middle" fill="#17242d" font-size="20" font-weight="900">取付面に対して90°</text>
-              <text x="65" y="267" text-anchor="middle" fill="#65349c" font-size="18" font-weight="900">基準面</text>
+              <text x="222" y="90" text-anchor="middle" fill="#17242d" font-size="20" font-weight="900">基準軸Aに対して90°</text>
+              <text x="105" y="267" text-anchor="middle" fill="#65349c" font-size="16" font-weight="900">エンコーダ取付面</text>
             </svg>
           </article>
           <article>
             <h3 style="color:var(--red)">誤差がある状態</h3>
-            <svg viewBox="0 0 420 280" role="img" aria-label="取付面に対して傾いた軸">
+            <svg viewBox="0 0 420 280" role="img" aria-label="基準軸Aに対して傾いたエンコーダ取付面">
               <rect x="45" y="35" width="40" height="210" rx="8" fill="#9b65d4" stroke="#65349c" stroke-width="6"/>
               <line x1="85" y1="140" x2="380" y2="140" stroke="#66747d" stroke-width="3" stroke-dasharray="9 7"/>
               <line x1="82" y1="142" x2="382" y2="180" stroke="#ed4050" stroke-width="26" stroke-linecap="round"/>
@@ -452,16 +468,16 @@
               <text x="366" y="165" fill="#17242d" font-size="19" font-weight="900">δ</text>
               <path d="M125 140a55 55 0 0 1 0 7" fill="none" stroke="#08783f" stroke-width="5"/>
               <text x="145" y="125" fill="#08783f" font-size="19" font-weight="900">θ</text>
-              <text x="65" y="267" text-anchor="middle" fill="#65349c" font-size="18" font-weight="900">基準面</text>
+              <text x="105" y="267" text-anchor="middle" fill="#65349c" font-size="16" font-weight="900">エンコーダ取付面</text>
             </svg>
           </article>
         </div>
         <div class="step-row">
           <div class="step"><span class="step-no">1</span><h3>面の直角度を角度へ</h3><p>0.030 ÷ 評価径100<br>＝ 0.000300 rad</p></div>
           <div class="step"><span class="step-no">2</span><h3>軸受中心差を角度へ</h3><p>相対ずれ0.040 ÷ 軸受間120<br>＝ 0.000333 rad</p></div>
-          <div class="step"><span class="step-no">3</span><h3>軸端変位へ</h3><p>突出し長さ60 × 合計角度<br>＝ 0.050 mm</p></div>
+          <div class="step"><span class="step-no">3</span><h3>取付位置の中心ずれへ</h3><p>評価距離SE 60 × 合計角度<br>＝ 0.050 mm</p></div>
         </div>
-        <div class="formula">θ ＝ 0.030/100 ＋ 0.040/120 ＋ 0.000200<br>＝ <span class="answer">0.000833 rad（0.0477°）</span><br><br>δ ＝ L × θ ＝ 60 × 0.000833<br>＝ <span class="answer">0.050 mm</span></div>
+        <div class="formula">θ ＝ 0.030/100 ＋ 0.040/120 ＋ 0.000200<br>＝ <span class="answer">0.000833 rad（0.0477°）</span><br><br>δ ＝ SE × θ ＝ 60 × 0.000833<br>＝ <span class="answer">0.050 mm</span></div>
         <div class="warning"><strong>注意：</strong>これは微小角度を使った簡易的な最悪値計算です。軸受形式、内部すきま、はめあい、ハウジング剛性、荷重、実際のデータム体系によって評価方法は変わります。</div>
       </section>
 
@@ -469,10 +485,11 @@
         <h2 class="chapter-title"><span class="num">6</span>数値を変えて計算してみよう</h2>
         <p class="lead">実際の図面値に置き換えると、公差配分の検討に使えます。単位はmmです。</p>
         <div class="calc">
-          <h3>同心度（3系統）の計算</h3>
+          <h3>エンコーダ取付部の同軸度（3系統）</h3>
           <div class="input-grid">
             <label class="field"><span>NLブラケット穴同心度（⌀）<small>部品ごとの同心</small></span><input id="nlBracketConc" type="number" step="0.001" value="0.020"></label>
             <label class="field"><span>Lブラケット穴同心度（⌀）<small>部品ごとの同心</small></span><input id="lBracketConc" type="number" step="0.001" value="0.020"></label>
+            <label class="field"><span>エンコーダ取付インロー同心度（⌀）<small>部品ごとの同心</small></span><input id="encoderPilotConc" type="number" step="0.001" value="0.020"></label>
             <label class="field"><span>軸受内部偏心<small>半径方向の値</small></span><input id="bearingEcc" type="number" step="0.001" value="0.005"></label>
             <label class="field"><span>軸振れ TIR<small>全振れ量</small></span><input id="shaftTir" type="number" step="0.001" value="0.010"></label>
             <label class="field"><span>Lブラケット嵌合穴 最大径<small>寸法公差によるずれ</small></span><input id="frameHole" type="number" step="0.001" value="100.04"></label>
@@ -481,33 +498,33 @@
             <label class="field"><span>L側軸受外径 最小値<small>寸法公差によるずれ</small></span><input id="bearingOd" type="number" step="0.001" value="51.99"></label>
           </div>
           <div class="group-grid" aria-live="polite">
-            <div class="group-card group-a"><h3>① 部品ごとの同心</h3><div class="group-value" id="partRss">0.016 mm</div><small id="partWorst">最悪値 0.030 mm</small></div>
+            <div class="group-card group-a"><h3>① 部品ごとの同心</h3><div class="group-value" id="partRss">0.019 mm</div><small id="partWorst">最悪値 0.040 mm</small></div>
             <div class="group-card group-b"><h3>② 寸法公差による同心</h3><div class="group-value" id="dimRss">0.036 mm</div><small id="dimWorst">最悪値 0.050 mm</small></div>
-            <div class="group-card group-c"><h3>③ 直角度による同心</h3><div class="group-value" id="perpConcRss">0.029 mm</div><small id="perpConcWorst">最悪値 0.050 mm</small></div>
+            <div class="group-card group-c"><h3>③ 直角度による同軸ずれ</h3><div class="group-value" id="perpConcRss">0.029 mm</div><small id="perpConcWorst">最悪値 0.050 mm</small></div>
           </div>
           <div class="results" aria-live="polite">
-            <div class="result"><span>3系統の最悪値合計</span><strong id="concWorst">0.130 mm</strong></div>
-            <div class="result"><span>全体RSS</span><strong id="concRss">0.049 mm</strong></div>
+            <div class="result"><span>3系統の最悪値合計</span><strong id="concWorst">0.140 mm</strong></div>
+            <div class="result"><span>全体RSS</span><strong id="concRss">0.050 mm</strong></div>
           </div>
-          <p id="concBreakdown">RSS内訳：部品同心 0.016、寸法公差 0.036、直角度 0.029 mm</p>
+          <p id="concBreakdown">RSS内訳：部品同心 0.019、寸法公差 0.036、直角度 0.029 mm</p>
           <div class="button-row"><button class="btn btn-primary" id="calcConc">計算する</button><button class="btn btn-secondary" id="resetConc">例の数値に戻す</button></div>
         </div>
 
         <div class="calc" style="margin-top:20px">
-          <h3>直角度（軸端変位）の計算</h3>
+          <h3>エンコーダ取付面の直角度・取付位置のずれ</h3>
           <div class="input-grid">
-            <label class="field"><span>取付面の直角度<small>評価径上の差</small></span><input id="faceTol" type="number" step="0.001" value="0.030"></label>
+            <label class="field"><span>エンコーダ取付面の直角度<small>評価径上の差</small></span><input id="faceTol" type="number" step="0.001" value="0.030"></label>
             <label class="field"><span>直角度の評価径 D<small>例：100</small></span><input id="faceDia" type="number" step="0.1" value="100"></label>
             <label class="field"><span>NL－L軸受中心の相対ずれ<small>例：0.040</small></span><input id="bearingOffset" type="number" step="0.001" value="0.040"></label>
             <label class="field"><span>軸受間距離 S<small>例：120</small></span><input id="bearingSpan" type="number" step="0.1" value="120"></label>
             <label class="field"><span>軸受内部の許容傾き<small>rad</small></span><input id="bearingTilt" type="number" step="0.00001" value="0.00020"></label>
-            <label class="field"><span>軸突出し長さ L<small>例：60</small></span><input id="overhang" type="number" step="0.1" value="60"></label>
+            <label class="field"><span>L基準からE取付位置までの距離 SE<small>例：60</small></span><input id="overhang" type="number" step="0.1" value="60"></label>
           </div>
           <div class="results" aria-live="polite">
             <div class="result"><span>最悪角度</span><strong id="angleWorst">0.000833 rad</strong></div>
-            <div class="result"><span>軸端変位 δ</span><strong id="tipWorst">0.050 mm</strong></div>
+            <div class="result"><span>E取付位置の中心ずれ δ</span><strong id="tipWorst">0.050 mm</strong></div>
             <div class="result"><span>RSS角度</span><strong id="angleRss">0.000491 rad</strong></div>
-            <div class="result"><span>RSS軸端変位</span><strong id="tipRss">0.029 mm</strong></div>
+            <div class="result"><span>RSS中心ずれ</span><strong id="tipRss">0.029 mm</strong></div>
           </div>
           <p id="perpBreakdown">角度内訳：0.000300 ＋ 0.000333 ＋ 0.000200 rad</p>
           <div class="button-row"><button class="btn btn-primary" id="calcPerp">計算する</button><button class="btn btn-secondary" id="resetPerp">例の数値に戻す</button></div>
@@ -533,8 +550,8 @@
       <section class="chapter" id="summary">
         <h2 class="chapter-title"><span class="num">7</span>まとめ</h2>
         <div class="compare">
-          <article class="blue-card"><h3>同心度（中心ずれ）</h3><p>①部品ごとの同心、②寸法公差によるずれ、③直角度による同心、の3系統を<strong>半径方向の中心ずれ</strong>へ換算して合成します。</p></article>
-          <article class="red-card"><h3>直角度（傾き）</h3><p>面の直角度やNL－L軸受の中心差を<strong>角度</strong>へ換算し、L側の突出し長さを掛けて軸端変位を求めます。</p></article>
+          <article class="blue-card"><h3>取付インローの同軸度</h3><p>①部品ごとの同心、②寸法公差によるずれ、③直角度による取付位置のずれ、の3系統を<strong>半径方向の中心ずれ</strong>へ換算して合成します。</p></article>
+          <article class="red-card"><h3>エンコーダ取付面の直角度</h3><p>エンコーダ取付面の直角度やNL－L軸受の中心差を<strong>角度</strong>へ換算し、基準軸Aとの関係を評価します。</p></article>
         </div>
         <div class="summary-flow">
           <div>① 基準を決める</div><div>② 公差経路を追う</div><div>③ 同じ量へ換算</div><div>④ 最悪値・RSSを計算</div>
@@ -545,7 +562,7 @@
   </div>
 
   <footer>
-    <p><strong>図でわかる モータの公差</strong></p>
+    <p><strong>図でわかる モータの組立精度</strong></p>
     <p>掲載例は学習用の簡易モデルです。実機では図面・規格・軸受仕様に基づいて判断してください。</p>
   </footer>
 
@@ -559,7 +576,7 @@
       const fixed = (value, digits) => Number.isFinite(value) ? value.toFixed(digits) : '—';
       const calcError = $('calcError');
 
-      const concDefaults = {nlBracketConc:0.020,lBracketConc:0.020,bearingEcc:0.005,shaftTir:0.010,frameHole:100.04,frameShaft:99.98,bearingHole:52.03,bearingOd:51.99};
+      const concDefaults = {nlBracketConc:0.020,lBracketConc:0.020,encoderPilotConc:0.020,bearingEcc:0.005,shaftTir:0.010,frameHole:100.04,frameShaft:99.98,bearingHole:52.03,bearingOd:51.99};
       const perpDefaults = {faceTol:0.030,faceDia:100,bearingOffset:0.040,bearingSpan:120,bearingTilt:0.00020,overhang:60};
 
       function setValues(values){Object.entries(values).forEach(([id,value])=>{$(id).value=value;});}
@@ -571,13 +588,14 @@
         const contributions=[
           {group:'① 部品同心',name:'NLブラケット穴同心度',value:num('nlBracketConc')/2},
           {group:'① 部品同心',name:'Lブラケット穴同心度',value:num('lBracketConc')/2},
+          {group:'① 部品同心',name:'エンコーダ取付インロー同心度',value:num('encoderPilotConc')/2},
           {group:'① 部品同心',name:'軸受内部偏心',value:num('bearingEcc')},
           {group:'① 部品同心',name:'軸ジャーナル振れ',value:num('shaftTir')/2},
           {group:'② 寸法公差',name:'Lブラケット嵌合すきま',value:(num('frameHole')-num('frameShaft'))/2},
           {group:'② 寸法公差',name:'L側軸受外輪嵌合すきま',value:(num('bearingHole')-num('bearingOd'))/2},
-          {group:'③ 直角度',name:'取付面直角度による軸端ずれ',value:l*angles[0]},
-          {group:'③ 直角度',name:'NL－L軸受中心差による軸端ずれ',value:l*angles[1]},
-          {group:'③ 直角度',name:'軸受内部傾きによる軸端ずれ',value:l*angles[2]}
+          {group:'③ 直角度',name:'エンコーダ取付面直角度によるずれ',value:l*angles[0]},
+          {group:'③ 直角度',name:'NL－L軸受中心差による取付位置ずれ',value:l*angles[1]},
+          {group:'③ 直角度',name:'軸受内部傾きによる取付位置ずれ',value:l*angles[2]}
         ];
         const valid=contributions.every(item=>Number.isFinite(item.value)&&item.value>=0);
         if(!valid){calcError.hidden=false;return;}
